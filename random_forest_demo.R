@@ -227,9 +227,7 @@ oob.values
 ## other.
 ##
 ## Start by converting the proximity matrix into a distance matrix.
-# distance.matrix <- dist(1-model$proximity)
 distance.matrix <- as.dist(1-model$proximity)
-
 
 mds.stuff <- cmdscale(distance.matrix, eig=TRUE, x.ret=TRUE)
 
