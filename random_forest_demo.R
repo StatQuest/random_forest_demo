@@ -219,9 +219,16 @@ for(i in 1:10) {
   oob.values[i] <- temp.model$err.rate[nrow(temp.model$err.rate),1]
 }
 oob.values
-## [1] 0.1716172 0.1716172 0.1617162 0.1848185 0.1749175 0.1947195 0.1815182
-## [8] 0.2013201 0.1881188 0.1947195
-## The lowest value is when mtry=3, so the default setting was the best.
+## find the minimum error
+min(oob.values)
+## find the optimal value for mtry...
+which(oob.values == min(oob.values))
+## create a model for proximities using the best value for mtry
+model <- randomForest(hd ~ ., 
+                      data=data.imputed,
+                      ntree=1000, 
+                      proximity=TRUE, 
+                      mtry=which(oob.values == min(oob.values)))
 
 ## Now let's create an MDS-plot to show how the samples are related to each 
 ## other.
